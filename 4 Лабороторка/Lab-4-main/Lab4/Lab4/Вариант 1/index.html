@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><title>Регистрация студента</title>
+<link rel="stylesheet" href="style.css"></head><body>
+<form id="studentForm" novalidate>
+ <h1>Регистрация студента</h1>
+ <label for="fio">ФИО</label>
+ <input id="fio" type="text" placeholder="Иванов Иван Иванович"><span class="error" id="fioError"></span>
+ <label for="email">E-mail</label>
+ <input id="email" type="email" placeholder="name@example.com"><span class="error" id="emailError"></span>
+ <label for="course">Курс</label>
+ <select id="course"><option value="">Выберите курс</option>
+  <option value="1">1 курс</option><option value="2">2 курс</option>
+  <option value="3">3 курс</option><option value="4">4 курс</option></select>
+ <span class="error" id="courseError"></span>
+ <label class="inline"><input id="agree" type="checkbox"> Согласен с правилами</label>
+ <span class="error" id="agreeError"></span>
+ <button type="submit">Зарегистрироваться</button>
+ <p id="message"></p><div id="result"></div>
+</form><script src="script.js"></script></body></html>
