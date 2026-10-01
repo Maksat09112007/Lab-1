@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><title>Бронирование мероприятия</title>
+<link rel="stylesheet" href="style.css"></head><body>
+<form id="eventForm" novalidate>
+ <h1>Бронирование мероприятия</h1>
+ <label for="name">Имя</label>
+ <input id="name" type="text"><span class="error" id="nameError"></span>
+ <label for="email">E-mail</label>
+ <input id="email" type="email"><span class="error" id="emailError"></span>
+ <label for="category">Категория билета</label>
+ <select id="category"><option value="">Выберите категорию</option>
+  <option value="2500">Студенческий — 2500 ₸</option>
+  <option value="5000">Стандарт — 5000 ₸</option>
+  <option value="15000">VIP — 15000 ₸</option></select>
+ <span class="error" id="categoryError"></span>
+ <label for="qty">Количество билетов (1–10)</label>
+ <input id="qty" type="number" value="1"><span class="error" id="qtyError"></span>
+ <label>Дополнительные опции (за 1 билет)</label>
+ <label class="inline"><input type="checkbox" name="opt" value="1000" data-name="Парковка"> Парковка +1000 ₸</label>
+ <label class="inline"><input type="checkbox" name="opt" value="3000" data-name="Афтепати"> Афтепати +3000 ₸</label>
+ <label class="inline"><input type="checkbox" name="opt" value="2000" data-name="Мерч"> Мерч +2000 ₸</label>
+ <p id="live">Предварительная стоимость: 0 ₸</p>
+ <button type="submit">Забронировать</button>
+ <p id="message"></p><div id="result"></div>
+</form><script src="script.js"></script></body></html>
