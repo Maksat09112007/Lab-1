@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Заметки</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="board">
+    <h1>Мои заметки</h1>
+
+    <div class="form">
+      <input type="text" id="text" placeholder="Что нужно запомнить?">
+      <button id="add">Добавить</button>
+    </div>
+
+    <div class="form">
+      <input type="text" id="search" placeholder="Поиск по заметкам">
+      <span id="count">Всего: 0</span>
+    </div>
+
+    <p id="error"></p>
+
+    <div id="notes"></div>
+    <p id="empty">Пока пусто, напиши первую заметку</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

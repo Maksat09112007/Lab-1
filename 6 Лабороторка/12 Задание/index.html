@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Модальное окно</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <h1>Модальное окно</h1>
+    <p>Окно можно закрыть кнопкой, кликом по темному фону или клавишей Esc.</p>
+    <button id="openBtn">Показать окно</button>
+    <div id="status">Статус: окно закрыто</div>
+  </div>
+
+  <div id="back" class="hidden">
+    <div id="win">
+      <h2>Что такое DOM?</h2>
+      <p>DOM — это объектная модель документа. Браузер превращает HTML-страницу в дерево объектов, и JavaScript может менять это дерево: добавлять, удалять и править элементы.</p>
+      <button id="closeBtn">Понятно</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
