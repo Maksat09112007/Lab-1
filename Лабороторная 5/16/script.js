@@ -29,7 +29,7 @@ function render() {
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
 
-    // фильтр
+
     if (currentFilter === "active" && task.done) continue;
     if (currentFilter === "done" && !task.done) continue;
 
