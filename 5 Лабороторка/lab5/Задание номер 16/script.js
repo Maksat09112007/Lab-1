@@ -1,4 +1,3 @@
-// Лаба 5, задание 16 - список задач
 const input = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const listEl = document.getElementById("list");
@@ -30,7 +29,7 @@ function render() {
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
 
-    // фильтр
+   
     if (currentFilter === "active" && task.done) continue;
     if (currentFilter === "done" && !task.done) continue;
 
@@ -61,7 +60,7 @@ function render() {
     listEl.appendChild(li);
   }
 
-  // считаем выполненные
+
   let doneCount = 0;
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].done) {
