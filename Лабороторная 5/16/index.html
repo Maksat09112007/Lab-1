@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Список задач</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="main">
+  <h1>Список задач</h1>
+  <input type="text" id="taskInput" placeholder="Новая задача">
+  <button class="btn" id="addBtn">Добавить</button>
+  <div id="error"></div>
+  <div class="filters">
+    <button class="btn filter chosen" data-filter="all">Все</button>
+    <button class="btn filter" data-filter="active">Невыполненные</button>
+    <button class="btn filter" data-filter="done">Выполненные</button>
+  </div>
+  <ul id="list"></ul>
+  <p id="counter"></p>
+  <button id="clearDone">Удалить выполненные задачи</button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

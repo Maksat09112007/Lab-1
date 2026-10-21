@@ -1,0 +1,54 @@
+body {
+font-family: Verdana, sans-serif;
+background-color: #efe9dc;
+margin: 0;
+padding: 30px;
+}
+
+.box {
+width: 360px;
+margin: 0 auto;
+border: 2px solid #333;
+padding: 15px;
+background-color: #fffdf6;
+text-align: center;
+}
+
+h1 {
+font-size: 22px;
+margin-top: 0;
+}
+
+#value {
+font-size: 70px;
+margin: 15px 0;
+}
+
+.positive { color: green; }
+.negative { color: red; }
+.zero { color: black; }
+
+.round {
+width: 70px;
+height: 70px;
+border-radius: 50%;
+border: 2px solid #333;
+background-color: #f4c95d;
+font-size: 32px;
+cursor: pointer;
+}
+
+#reset {
+display: block;
+width: 200px;
+height: 36px;
+margin: 15px auto;
+border: 2px solid #333;
+background-color: #ddd;
+font-size: 15px;
+cursor: pointer;
+}
+
+#step { width: 50px; }
+#message { color: red; height: 18px; }
+#history { text-align: left; font-size: 13px; }

@@ -1,0 +1,53 @@
+body {
+  font-family: Tahoma, Arial, sans-serif;
+  background-color: #dfe8e6;
+  margin: 0;
+  padding: 30px;
+}
+
+.form {
+  width: 380px;
+  margin: 0 auto;
+  background-color: white;
+  border: 1px solid #777;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+#password {
+  width: 95%;
+  padding: 6px;
+  font-size: 15px;
+  border: 1px solid #555;
+}
+
+#bar {
+  height: 12px;
+  background-color: #ccc;
+  margin-top: 10px;
+}
+
+#barFill {
+  height: 12px;
+  width: 0;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+.ok {
+  color: green;
+}
+
+.fail {
+  color: red;
+}
+
+#result {
+  font-weight: bold;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Проверка пароля</title>
+  <!-- Подключаем файл со стилями -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form">
+    <h1>Проверка пароля</h1>
+    <input type="password" id="password" placeholder="Введите пароль">
+    <br>
+    <input type="checkbox" id="toggle"> <label for="toggle">Показать пароль</label>
+    <div id="bar"><div id="barFill"></div></div>
+    <p id="strength"></p>
+    <p>Требования:</p>
+    <ul id="rules"></ul>
+    <p id="result"></p>
+  </div>
+  <!-- Подключаем скрипт -->
+  <script src="script.js"></script>
+</body>
+</html>

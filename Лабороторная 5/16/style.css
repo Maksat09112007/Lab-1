@@ -1,0 +1,90 @@
+body {
+  font-family: Georgia, serif;
+  background-color: #e6e6f0;
+  margin: 0;
+  padding: 25px;
+}
+
+.main {
+  width: 460px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #444;
+  padding: 15px;
+}
+
+h1 { 
+  font-size: 24px; 
+  margin-top: 0; 
+}
+
+#taskInput {
+  width: 290px;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: 1px solid #444;
+  background-color: #cfd8ee;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter { 
+  background-color: #eee; 
+  border-radius: 12px; 
+}
+
+.chosen { 
+  background-color: #8fa4d8; 
+}
+
+#clearDone {
+  width: 100%;
+  padding: 8px;
+  background-color: #f1b3b3;
+  border: 1px solid #444;
+  cursor: pointer;
+}
+
+.small {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #444;
+  background-color: #f1b3b3;
+  cursor: pointer;
+}
+
+#error { 
+  color: red; 
+  height: 20px; 
+}
+
+.filters { 
+  margin: 10px 0; 
+}
+
+ul { 
+  list-style-type: none; 
+  padding: 0; 
+}
+
+li { 
+  padding: 6px 0; 
+  border-bottom: 1px solid #ccc; 
+}
+
+li span { 
+  cursor: pointer; 
+  display: inline-block; 
+  width: 380px; 
+}
+
+li.done span { 
+  text-decoration: line-through; 
+  color: gray; 
+}
