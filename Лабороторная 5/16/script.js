@@ -1,4 +1,3 @@
-// Лаба 5, задание 16 - список задач
 const input = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const listEl = document.getElementById("list");
