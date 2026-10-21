@@ -60,7 +60,7 @@ function render() {
     listEl.appendChild(li);
   }
 
-  // считаем выполненные
+  
   let doneCount = 0;
   for (let i = 0; i < tasks.length; i++) {
     if (tasks[i].done) {
