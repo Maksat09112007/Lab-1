@@ -1,4 +1,3 @@
-// Лаба 5, задание 3 - счетчик
 const valueEl = document.getElementById("value");
 const stepEl = document.getElementById("step");
 const messageEl = document.getElementById("message");
@@ -7,7 +6,7 @@ const historyEl = document.getElementById("history");
 let count = 0;
 let history = [];
 
-// берем шаг из поля и проверяем его
+
 function getStep() {
   let step = Number(stepEl.value);
   if (step < 1 || step % 1 !== 0) {
