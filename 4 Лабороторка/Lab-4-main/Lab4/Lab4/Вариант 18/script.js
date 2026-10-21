@@ -13,7 +13,7 @@ function setError(id, text) {
 
 const options = () => [...form.querySelectorAll('input[name="opt"]:checked')];
 
-// Итоговая стоимость = (цена билета + сумма опций) * количество
+
 function calcTotal() {
   const price = Number(form.category.value) || 0;
   const qty = Number(form.qty.value) || 0;
@@ -21,7 +21,7 @@ function calcTotal() {
   return (price + extras) * qty;
 }
 
-// Творческое задание: стоимость пересчитывается в реальном времени
+
 function updateLive() { live.textContent = `Предварительная стоимость: ${calcTotal().toLocaleString('ru-RU')} ₸`; }
 form.addEventListener('input', updateLive);
 form.addEventListener('change', updateLive);
@@ -36,7 +36,7 @@ const validators = {
   },
 };
 
-// Проверка при вводе (подсветка) и при отправке
+
 Object.keys(validators).forEach(id => {
   const el = document.getElementById(id);
   el.addEventListener('input', () => setError(id, validators[id]()));
