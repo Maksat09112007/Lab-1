@@ -15,7 +15,7 @@ function selectedFormat() {
   return checked ? checked.value : '';
 }
 
-// Творческое задание: поле «Город» появляется при удалённой/гибридной работе
+
 form.querySelectorAll('input[name="format"]').forEach(radio =>
   radio.addEventListener('change', () => { cityBox.hidden = selectedFormat() === 'Офис'; }));
 
