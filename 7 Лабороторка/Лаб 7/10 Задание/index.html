@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Список задач</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <h1>Мои задачи</h1>
+
+    <div class="add">
+      <input id="newTask" type="text" maxlength="80" placeholder="Что нужно сделать?" aria-label="Новая задача">
+      <button id="addBtn" type="button">Добавить</button>
+    </div>
+    <p id="msg" class="msg" role="alert"></p>
+
+    <nav class="tabs" role="tablist" aria-label="Фильтр задач">
+      <button role="tab" data-page="all">Все <span class="count" data-count="all">0</span></button>
+      <button role="tab" data-page="active">Активные <span class="count" data-count="active">0</span></button>
+      <button role="tab" data-page="done">Выполненные <span class="count" data-count="done">0</span></button>
+    </nav>
+
+    <main id="content" aria-live="polite"></main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

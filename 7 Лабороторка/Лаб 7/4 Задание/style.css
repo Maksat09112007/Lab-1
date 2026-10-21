@@ -1,0 +1,115 @@
+:root {
+  --cream: #f6efe4;
+  --paper: #fffaf1;
+  --coffee: #4a2e1d;
+  --caramel: #b8742f;
+  --line: #e0d2bd;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--coffee);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+}
+
+.top {
+  text-align: center;
+  padding: 28px 16px 14px;
+}
+.top h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+}
+.slogan {
+  margin: 4px 0 0;
+  font-style: italic;
+  color: var(--caramel);
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  border-bottom: 2px solid var(--coffee);
+  max-width: 760px;
+  margin: 12px auto 0;
+  padding: 0 12px;
+}
+.tabs button {
+  font: inherit;
+  font-size: 1.05rem;
+  padding: 9px 22px;
+  background: transparent;
+  color: var(--coffee);
+  border: 1px solid transparent;
+  border-bottom: none;
+  cursor: pointer;
+}
+.tabs button:hover { background: #ecdfc9; }
+.tabs button.active {
+  background: var(--coffee);
+  color: var(--cream);
+}
+.tabs button:focus-visible {
+  outline: 2px dashed var(--caramel);
+  outline-offset: 2px;
+}
+
+#content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 22px 12px 40px;
+  min-height: 340px;
+}
+#content h2 { margin-top: 0; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 14px;
+}
+.dish {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 14px;
+}
+.dish h3 { margin: 0 0 4px; font-size: 1.1rem; }
+.dish .desc { margin: 0 0 10px; font-size: .92rem; color: #7a604b; }
+.dish .price { font-weight: bold; color: var(--caramel); }
+.dish .tag {
+  display: inline-block;
+  font-size: .75rem;
+  border: 1px solid var(--caramel);
+  color: var(--caramel);
+  padding: 0 6px;
+  margin-bottom: 6px;
+}
+
+.promo {
+  background: var(--paper);
+  border-left: 5px solid var(--caramel);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+.promo h3 { margin: 0 0 4px; }
+.promo p { margin: 0; }
+
+.info dt { font-weight: bold; margin-top: 12px; }
+.info dd { margin: 2px 0 0; }
+
+.foot {
+  text-align: center;
+  font-size: .85rem;
+  color: #8b735f;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+  .tabs button { padding: 8px 12px; font-size: .95rem; }
+  .top h1 { font-size: 1.7rem; }
+}
