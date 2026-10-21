@@ -1,4 +1,3 @@
-
 var textInput = document.querySelector("#text");
 var addBtn = document.querySelector("#add");
 var searchInput = document.querySelector("#search");
