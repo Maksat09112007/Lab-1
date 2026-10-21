@@ -1,4 +1,3 @@
-// Лаба 5, задание 9 - проверка пароля
 const passwordEl = document.getElementById("password");
 const toggleEl = document.getElementById("toggle");
 const rulesEl = document.getElementById("rules");
@@ -6,14 +5,13 @@ const resultEl = document.getElementById("result");
 const barFill = document.getElementById("barFill");
 const strengthEl = document.getElementById("strength");
 
-// требования к паролю
 const rules = [
   { text: "Длина не меньше 8 символов", check: function (p) { return p.length >= 8; } },
   { text: "Есть хотя бы одна цифра", check: function (p) { return /[0-9]/.test(p); } },
   { text: "Есть заглавная буква (дополнительно)", check: function (p) { return /[A-ZА-Я]/.test(p); } }
 ];
 
-// создаем пункты списка
+
 let items = [];
 for (let i = 0; i < rules.length; i++) {
   let li = document.createElement("li");
@@ -38,7 +36,7 @@ function checkPassword() {
     }
   }
 
-  // полоска надежности
+ 
   if (password === "") {
     barFill.style.width = "0";
     strengthEl.textContent = "";
@@ -56,7 +54,6 @@ function checkPassword() {
     }
   }
 
-  // главное условие - длина и цифра
   if (password === "") {
     resultEl.textContent = "";
   } else if (rules[0].check(password) && rules[1].check(password)) {
