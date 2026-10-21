@@ -2,7 +2,7 @@ const form = document.getElementById('studentForm');
 const message = document.getElementById('message');
 const result = document.getElementById('result');
 
-// Правила: возвращают текст ошибки или пустую строку
+
 const rules = {
   fio: v => v.trim().split(/\s+/).filter(Boolean).length >= 2 ? '' : 'Введите ФИО полностью (минимум фамилию и имя)',
   email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Введите e-mail в формате name@example.com',
@@ -28,7 +28,7 @@ function validateAgree() {
   return agreed;
 }
 
-// Творческое задание: подсветка поля сразу после ввода
+
 Object.keys(rules).forEach(id => {
   document.getElementById(id).addEventListener('input', () => validateField(id));
   document.getElementById(id).addEventListener('change', () => validateField(id));
