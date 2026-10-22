@@ -1,4 +1,4 @@
-var questions = [
+const questions = [
   {
     question: "Какой метод вернет только первый подходящий элемент?",
     answers: ["getElementsByClassName()", "querySelector()", "querySelectorAll()", "getAll()"],
@@ -31,25 +31,25 @@ var questions = [
   }
 ];
 
-var content = document.querySelector("#content");
-var progress = document.querySelector("#progress");
+const content = document.querySelector("#content");
+const progress = document.querySelector("#progress");
 
-var current = 0; 
-var points = 0;  
+let current = 0; // Использование let, так как номер вопроса меняется (current++)
+let points = 0;  // Использование let, так как количество очков растет (points++)
 
 function showQuestion() {
   content.innerHTML = "";
   progress.textContent = "Вопрос " + (current + 1) + " из " + questions.length;
 
-  var q = questions[current];
+  const q = questions[current];
 
-  var title = document.createElement("div");
+  const title = document.createElement("div");
   title.className = "question";
   title.textContent = q.question;
   content.append(title);
 
-  for (var i = 0; i < q.answers.length; i++) {
-    var btn = document.createElement("button");
+  for (let i = 0; i < q.answers.length; i++) {
+    const btn = document.createElement("button");
     btn.className = "answer";
     btn.textContent = q.answers[i];
     btn.setAttribute("data-num", i);
@@ -59,13 +59,12 @@ function showQuestion() {
 }
 
 function chooseAnswer(event) {
-  var btn = event.target;
-  var chosen = Number(btn.getAttribute("data-num"));
-  var correct = questions[current].correct;
-  var buttons = document.querySelectorAll(".answer");
+  const btn = event.target;
+  const chosen = Number(btn.getAttribute("data-num"));
+  const correct = questions[current].correct;
+  const buttons = document.querySelectorAll(".answer");
 
-  
-  for (var i = 0; i < buttons.length; i++) {
+  for (let i = 0; i < buttons.length; i++) {
     buttons[i].disabled = true;
   }
 
@@ -76,7 +75,6 @@ function chooseAnswer(event) {
     btn.classList.add("wrong");
   }
 
-  
   setTimeout(function () {
     current++;
     if (current < questions.length) {
@@ -91,14 +89,14 @@ function showResult() {
   content.innerHTML = "";
   progress.textContent = "Тест окончен";
 
-  var box = document.createElement("div");
+  const box = document.createElement("div");
   box.className = "result";
 
-  var big = document.createElement("div");
+  const big = document.createElement("div");
   big.className = "big";
   big.textContent = points + " из " + questions.length;
 
-  var text = document.createElement("p");
+  const text = document.createElement("p");
   if (points === questions.length) {
     text.textContent = "Все ответы верные!";
   } else if (points >= 3) {
@@ -107,7 +105,7 @@ function showResult() {
     text.textContent = "Лучше перечитать теорию.";
   }
 
-  var again = document.createElement("button");
+  const again = document.createElement("button");
   again.className = "restart";
   again.textContent = "Пройти еще раз";
   again.addEventListener("click", function () {
@@ -123,3 +121,4 @@ function showResult() {
 }
 
 showQuestion();
+
