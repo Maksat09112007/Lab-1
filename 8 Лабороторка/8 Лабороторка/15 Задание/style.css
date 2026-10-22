@@ -1,0 +1,82 @@
+:root {
+  --bg: #1e1b24;
+  --col: #2a2633;
+  --card: #383245;
+  --text: #ece8f5;
+  --accent: #c78bd8;
+  --plan: #e5b567;
+  --progress: #7fc3b0;
+  --done: #a3d17a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  min-height: 100vh;
+}
+.top { padding: 20px 24px 6px; }
+h1 { margin: 0 0 12px; font-size: 1.5rem; color: var(--accent); }
+form { display: flex; gap: 8px; flex-wrap: wrap; }
+input[type="text"], select {
+  font: inherit;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #4b4360;
+  background: var(--col);
+  color: var(--text);
+}
+input[type="text"] { flex: 1 1 240px; }
+button, .import {
+  font: inherit;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #1e1b24;
+  font-weight: 600;
+  cursor: pointer;
+}
+.error { color: #ff8a8a; min-height: 1.3em; margin: 6px 0 0; }
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: 10px 24px 24px;
+}
+.column {
+  background: var(--col);
+  border-radius: 12px;
+  padding: 12px;
+  min-height: 320px;
+  border-top: 4px solid var(--plan);
+}
+.column[data-status="progress"] { border-top-color: var(--progress); }
+.column[data-status="done"] { border-top-color: var(--done); }
+.column.drag-over { outline: 2px dashed var(--accent); }
+h2 { margin: 0 0 10px; font-size: 1.05rem; display: flex; justify-content: space-between; }
+.count { background: var(--card); border-radius: 999px; padding: 0 10px; font-size: .85rem; }
+.cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: grab;
+  word-break: break-word;
+}
+.card.dragging { opacity: .4; }
+.card p { margin: 0 0 8px; }
+.actions { display: flex; gap: 6px; }
+.actions button {
+  padding: 3px 10px;
+  font-size: .85rem;
+  background: #4b4360;
+  color: var(--text);
+}
+.actions button:disabled { opacity: .35; cursor: default; }
+.actions .del { margin-left: auto; background: #6a3a4a; }
+.foot { display: flex; gap: 10px; padding: 0 24px 28px; flex-wrap: wrap; }
+@media (max-width: 760px) {
+  .board { grid-template-columns: 1fr; }
+}

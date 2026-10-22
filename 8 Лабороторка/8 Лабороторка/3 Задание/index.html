@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Задание 3 — Настройки темы</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="panel">
+    <h1>Настройки оформления</h1>
+    <p class="hint">Выберите тему и размер текста — настройки сохранятся в localStorage.</p>
+
+    <fieldset>
+      <legend>Тема</legend>
+      <label><input type="radio" name="theme" value="light"> Светлая</label>
+      <label><input type="radio" name="theme" value="dark"> Тёмная</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Размер текста: <output id="sizeOut">16</output> px</legend>
+      <input id="fontSize" type="range" min="12" max="28" step="1" value="16">
+    </fieldset>
+
+    <section class="preview">
+      <h2>Пример текста</h2>
+      <p>Съешь ещё этих мягких французских булок, да выпей же чаю.</p>
+    </section>
+
+    <div class="row">
+      <button id="resetBtn" type="button">Сбросить настройки</button>
+    </div>
+
+    <h3>Содержимое localStorage</h3>
+    <pre id="storageView"></pre>
+    <p id="message" class="message" role="status"></p>
+  </main>
+  <script src="script.js" defer></script>
+</body>
+</html>

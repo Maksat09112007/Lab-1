@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Задание 14 — Викторина</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="quiz">
+    <header>
+      <h1>Викторина: Web Storage</h1>
+      <p class="best">Лучший результат: <strong id="best">—</strong></p>
+    </header>
+
+    <section id="game">
+      <div class="progress"><div id="bar"></div></div>
+      <p id="counter" class="counter"></p>
+      <h2 id="question"></h2>
+      <div id="options" class="options"></div>
+      <p id="feedback" class="feedback" role="status"></p>
+      <button id="nextBtn" type="button" hidden>Дальше</button>
+    </section>
+
+    <section id="result" hidden>
+      <h2>Викторина завершена</h2>
+      <p id="resultText"></p>
+      <button id="restartBtn" type="button">Начать заново</button>
+    </section>
+
+    <details>
+      <summary>Содержимое хранилищ</summary>
+      <pre id="storageView"></pre>
+    </details>
+  </main>
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Задание 16 — Канбан-доска</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Канбан-доска</h1>
+    <form id="addForm" autocomplete="off">
+      <input id="title" type="text" placeholder="Название карточки" maxlength="80">
+      <select id="status" aria-label="Колонка">
+        <option value="plan">План</option>
+        <option value="progress">В работе</option>
+        <option value="done">Готово</option>
+      </select>
+      <button type="submit">Добавить</button>
+    </form>
+    <p id="error" class="error" role="alert"></p>
+  </header>
+
+  <main class="board">
+    <section class="column" data-status="plan">
+      <h2>План <span class="count" id="count-plan">0</span></h2>
+      <ul class="cards" id="list-plan"></ul>
+    </section>
+    <section class="column" data-status="progress">
+      <h2>В работе <span class="count" id="count-progress">0</span></h2>
+      <ul class="cards" id="list-progress"></ul>
+    </section>
+    <section class="column" data-status="done">
+      <h2>Готово <span class="count" id="count-done">0</span></h2>
+      <ul class="cards" id="list-done"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <button id="exportBtn" type="button">Экспорт JSON</button>
+    <label class="import">Импорт JSON <input id="importFile" type="file" accept="application/json,.json" hidden></label>
+    <button id="clearBtn" type="button">Очистить доску</button>
+  </footer>
+  <script src="script.js" defer></script>
+</body>
+</html>
