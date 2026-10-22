@@ -1,7 +1,7 @@
-var openBtn = document.querySelector("#openBtn");
-var closeBtn = document.querySelector("#closeBtn");
-var back = document.querySelector("#back");
-var statusBox = document.querySelector("#status");
+const openBtn = document.querySelector("#openBtn");
+const closeBtn = document.querySelector("#closeBtn");
+const back = document.querySelector("#back");
+const statusBox = document.querySelector("#status");
 
 function openWindow() {
   back.classList.remove("hidden");
@@ -9,7 +9,6 @@ function openWindow() {
 }
 
 function closeWindow(how) {
-  
   if (back.classList.contains("hidden")) {
     return;
   }
@@ -22,7 +21,6 @@ openBtn.addEventListener("click", openWindow);
 closeBtn.addEventListener("click", function () {
   closeWindow("кнопкой");
 });
-
 
 back.addEventListener("click", function (event) {
   if (event.target === back) {
