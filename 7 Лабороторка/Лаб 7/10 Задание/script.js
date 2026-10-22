@@ -1,5 +1,5 @@
 let tasks = [
-  { id: 1, text: "Сделать лабораторную по SPA", done: false },
+  { id: 1, text: "Сделать лабораторную ", done: false },
   { id: 2, text: "Купить тетрадь для конспектов", done: true },
   { id: 3, text: "Подготовиться к защите", done: false }
 ];
