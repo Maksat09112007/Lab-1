@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Задание 3 (повышенный №19) — поиск</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <h1>Задание 3 · Поиск с debounce и отменой запроса</h1>
+    <p class="sub">Повышенный уровень, вариант 19. Данные берутся с JSONPlaceholder без перезагрузки страницы</p>
+  </header>
+
+  <aside class="meter" aria-label="Статистика запросов">
+    <span>Запросов отправлено: <b id="req-count">0</b></span>
+    <span>Последний ответ: <b id="req-time">—</b></span>
+    <span>Отменено: <b id="req-aborted">0</b></span>
+  </aside>
+
+  <main>
+    <section id="part-advanced" class="panel">
+      <h2>Поиск публикаций</h2>
+      <p class="hint">Запрос уходит через 400 мс после последнего нажатия клавиши; предыдущий незавершённый запрос отменяется.</p>
+      <div class="row">
+        <label for="search-input">Слово в заголовке</label>
+        <input id="search-input" type="search" autocomplete="off" placeholder="например: qui">
+      </div>
+      <p id="search-status" class="status" role="status">Введите запрос.</p>
+      <button id="search-retry" class="retry" type="button" hidden>Повторить</button>
+      <ul id="search-list" class="list"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">Лабораторная работа №9 · «Языки и технология программирования»</footer>
+</body>
+</html>
