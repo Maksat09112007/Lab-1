@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Конвертер единиц</title>
+  <style>
+:root { --bg:#f4efe1; --card:#fffdf7; --main:#2f6b4f; --accent:#d98324; --text:#2b2a24; --err:#a63a2b; }
+* { box-sizing: border-box; }
+body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--text); font:16px/1.5 Georgia, "Times New Roman", serif; }
+.card { width:min(92vw,420px); background:var(--card); padding:1.75rem; border-top:6px solid var(--main); border-radius:6px; box-shadow:0 4px 18px rgba(60,50,20,.12); }
+h1 { margin:0 0 1rem; font-size:1.5rem; color:var(--main); }
+label { display:block; margin:.9rem 0 .3rem; font-size:.9rem; letter-spacing:.03em; text-transform:uppercase; }
+select, input { width:100%; padding:.6rem .7rem; font:inherit; border:1.5px solid #cfc6a8; border-radius:4px; background:#fff; }
+select:focus, input:focus { outline:2px solid var(--accent); border-color:var(--accent); }
+button { width:100%; margin-top:1.2rem; padding:.7rem; font:inherit; font-weight:bold; color:#fff; background:var(--main); border:0; border-radius:4px; cursor:pointer; }
+button:hover { background:#25563f; }
+.error { min-height:1.5em; margin:.8rem 0 0; color:var(--err); }
+.result { margin:.2rem 0 0; padding-left:.7rem; border-left:4px solid var(--accent); font-size:1.15rem; font-weight:bold; min-height:1.5em; }
+.result:empty { border-left-color:transparent; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>Конвертер единиц</h1>
+    <label for="operation">Операция</label>
+    <select id="operation"></select>
+    <label for="value">Значение</label>
+    <input id="value" type="text" inputmode="decimal" placeholder="Например, 2,5" autocomplete="off">
+    <button id="convert" type="button">Перевести</button>
+    <p id="error" class="error" role="alert"></p>
+    <p id="result" class="result" aria-live="polite"></p>
+  </main>
+  <script>
+(() => {
+  // ../Lab10_ESModules/task1_units/src/modules/units.js
+  var OPERATIONS = {
+    "km-m": { label: "км → м", from: "км", to: "м", apply: (v) => v * 1e3 },
+    "m-km": { label: "м → км", from: "м", to: "км", apply: (v) => v / 1e3 },
+    "kg-g": { label: "кг → г", from: "кг", to: "г", apply: (v) => v * 1e3 },
+    "g-kg": { label: "г → кг", from: "г", to: "кг", apply: (v) => v / 1e3 },
+    "min-s": { label: "минуты → секунды", from: "мин", to: "с", apply: (v) => v * 60 },
+    "s-min": { label: "секунды → минуты", from: "с", to: "мин", apply: (v) => v / 60 }
+  };
+  function convert(key, value) {
+    const operation = OPERATIONS[key];
+    if (!operation) {
+      throw new Error(`Неизвестная операция: ${key}`);
+    }
+    return operation.apply(value);
+  }
+
+  // ../Lab10_ESModules/task1_units/src/modules/validator.js
+  function parseNumber(raw) {
+    const text = String(raw).trim().replace(",", ".");
+    if (text === "") {
+      return { ok: false, error: "Поле не заполнено" };
+    }
+    if (!/^-?\d+(\.\d+)?$/.test(text)) {
+      return { ok: false, error: "Введите корректное число" };
+    }
+    const value = Number(text);
+    if (value < 0) {
+      return { ok: false, error: "Значение не может быть отрицательным" };
+    }
+    return { ok: true, value };
+  }
+
+  // ../Lab10_ESModules/task1_units/src/modules/formatter.js
+  var numberFormat = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 6 });
+  function formatResult(input2, output, operation) {
+    return `${numberFormat.format(input2)} ${operation.from} = ${numberFormat.format(output)} ${operation.to}`;
+  }
+
+  // ../Lab10_ESModules/task1_units/src/main.js
+  var select = document.querySelector("#operation");
+  var input = document.querySelector("#value");
+  var button = document.querySelector("#convert");
+  var errorBox = document.querySelector("#error");
+  var resultBox = document.querySelector("#result");
+  for (const [key, operation] of Object.entries(OPERATIONS)) {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = operation.label;
+    select.append(option);
+  }
+  function handleConvert() {
+    const parsed = parseNumber(input.value);
+    if (!parsed.ok) {
+      errorBox.textContent = parsed.error;
+      resultBox.textContent = "";
+      return;
+    }
+    errorBox.textContent = "";
+    const result = convert(select.value, parsed.value);
+    resultBox.textContent = formatResult(parsed.value, result, OPERATIONS[select.value]);
+  }
+  button.addEventListener("click", handleConvert);
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") handleConvert();
+  });
+  select.addEventListener("change", () => {
+    errorBox.textContent = "";
+    resultBox.textContent = "";
+  });
+})();
+</script>
+</body>
+</html>

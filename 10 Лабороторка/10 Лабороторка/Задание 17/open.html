@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Бронирование аудиторий</title>
+  <style>
+:root { --bg:#f3ecef; --main:#7a2e4d; --gold:#c9a227; --text:#2a1f25; --line:#d9c7cf; --ok:#4c6b3a; --err:#a4262c; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 "Segoe UI", Tahoma, sans-serif; }
+header { padding:1rem 2rem; background:var(--main); color:#fff; border-bottom:4px solid var(--gold); }
+h1 { margin:0; font-size:1.5rem; } h2 { margin:0 0 .6rem; font-size:1.1rem; color:var(--main); }
+.layout { display:grid; grid-template-columns:minmax(260px,1fr) 1.6fr; gap:1.2rem; padding:1.2rem 2rem; align-items:start; }
+@media (max-width:800px) { .layout { grid-template-columns:1fr; padding:1rem; } }
+.panel { padding:1.2rem; background:#fff; border-radius:8px; box-shadow:0 1px 6px rgba(0,0,0,.1); }
+label { display:block; margin:.7rem 0 .2rem; font-size:.85rem; text-transform:uppercase; letter-spacing:.04em; }
+input, select { width:100%; padding:.5rem .6rem; font:inherit; border:1.5px solid var(--line); border-radius:5px; }
+input:focus, select:focus { outline:2px solid var(--gold); border-color:var(--gold); }
+.times { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+button { font:inherit; cursor:pointer; border:0; border-radius:5px; padding:.6rem 1.2rem; background:var(--main); color:#fff; }
+#book { width:100%; margin-top:1rem; } button:hover { background:#5f2339; }
+.message { min-height:1.5em; margin:.7rem 0 0; color:var(--err); } .message.ok { color:var(--ok); }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th, td { padding:.45rem .4rem; text-align:left; border-bottom:1px solid var(--line); }
+th { color:var(--main); font-size:.8rem; text-transform:uppercase; }
+td button { padding:.1rem .5rem; background:transparent; color:var(--err); font-size:1.1rem; }
+.empty { color:#8b7a83; font-style:italic; }
+</style>
+</head>
+<body>
+  <header><h1>Бронирование аудиторий</h1></header>
+  <main class="layout">
+    <section class="panel">
+      <h2>Новая бронь</h2>
+      <label for="name">ФИО</label><input id="name" type="text" autocomplete="off">
+      <label for="room">Аудитория</label><select id="room"></select>
+      <label for="date">Дата</label><input id="date" type="date">
+      <div class="times">
+        <div><label for="start">Начало</label><input id="start" type="text" placeholder="09:00" autocomplete="off"></div>
+        <div><label for="end">Конец</label><input id="end" type="text" placeholder="10:30" autocomplete="off"></div>
+      </div>
+      <button id="book" type="button">Забронировать</button>
+      <p id="message" class="message" role="alert"></p>
+    </section>
+    <section class="panel">
+      <h2>Список броней</h2>
+      <div id="list"></div>
+    </section>
+  </main>
+  <script>
+(() => {
+  // ../Lab10_ESModules/task3_booking/src/modules/rooms.js
+  var ROOMS = [
+    { id: 1, name: "Ауд. 101 (лекционная)", seats: 80 },
+    { id: 2, name: "Ауд. 204 (компьютерный класс)", seats: 24 },
+    { id: 3, name: "Ауд. 305 (семинарская)", seats: 30 },
+    { id: 4, name: "Ауд. 410 (лаборатория)", seats: 16 }
+  ];
+  function findRoom(id) {
+    return ROOMS.find((room) => room.id === Number(id)) ?? null;
+  }
+
+  // ../Lab10_ESModules/task3_booking/src/modules/validation.js
+  var OPEN_TIME = "08:00";
+  var CLOSE_TIME = "20:00";
+  function parseTime(text) {
+    const match = /^(\d{1,2}):(\d{2})$/.exec(String(text).trim());
+    if (!match) return null;
+    const hours = Number(match[1]);
+    const minutes = Number(match[2]);
+    return hours < 24 && minutes < 60 ? hours * 60 + minutes : null;
+  }
+  function isRealDate(text) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return false;
+    const date = /* @__PURE__ */ new Date(`${text}T00:00:00Z`);
+    return !Number.isNaN(date.getTime()) && date.toISOString().startsWith(text);
+  }
+  function validateBooking(form) {
+    const name = String(form.name ?? "").trim();
+    if (name.length < 2) return { ok: false, error: "Укажите ФИО (не короче 2 символов)" };
+    if (!findRoom(form.roomId)) return { ok: false, error: "Выберите аудиторию" };
+    const date = String(form.date ?? "").trim();
+    if (date === "") return { ok: false, error: "Укажите дату" };
+    if (!isRealDate(date)) return { ok: false, error: "Некорректная дата" };
+    const start = parseTime(form.start);
+    const end = parseTime(form.end);
+    if (start === null || end === null) return { ok: false, error: "Время вводится в формате ЧЧ:ММ, например 09:30" };
+    if (end <= start) return { ok: false, error: "Время окончания должно быть позже начала" };
+    if (start < parseTime(OPEN_TIME) || end > parseTime(CLOSE_TIME)) {
+      return { ok: false, error: `Бронирование возможно с ${OPEN_TIME} до ${CLOSE_TIME}` };
+    }
+    const pad = (minutes) => `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+    return { ok: true, value: { name, roomId: Number(form.roomId), date, start: pad(start), end: pad(end) } };
+  }
+
+  // ../Lab10_ESModules/task3_booking/src/modules/booking.js
+  function hasOverlap(a, b) {
+    return a.roomId === b.roomId && a.date === b.date && parseTime(a.start) < parseTime(b.end) && parseTime(b.start) < parseTime(a.end);
+  }
+  function addBooking(bookings2, data) {
+    const conflict = bookings2.find((booking) => hasOverlap(booking, data));
+    if (conflict) {
+      return { ok: false, error: `Аудитория занята: ${conflict.start}–${conflict.end} (${conflict.name})` };
+    }
+    const id = bookings2.reduce((max, booking) => Math.max(max, booking.id), 0) + 1;
+    return { ok: true, bookings: [...bookings2, { id, ...data }] };
+  }
+  function cancelBooking(bookings2, id) {
+    return bookings2.filter((booking) => booking.id !== id);
+  }
+
+  // ../Lab10_ESModules/task3_booking/src/modules/storage.js
+  var KEY = "lab10_bookings";
+  function loadBookings() {
+    try {
+      const data = JSON.parse(localStorage.getItem(KEY));
+      return Array.isArray(data) ? data : [];
+    } catch {
+      return [];
+    }
+  }
+  function saveBookings(bookings2) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(bookings2));
+    } catch {
+    }
+  }
+
+  // ../Lab10_ESModules/task3_booking/src/modules/ui.js
+  function createElement(tag, text = "") {
+    const element = document.createElement(tag);
+    element.textContent = text;
+    return element;
+  }
+  function renderRooms(select, rooms) {
+    select.replaceChildren(createElement("option", "— выберите —"));
+    select.firstChild.value = "";
+    for (const room of rooms) {
+      const option = createElement("option", `${room.name}, мест: ${room.seats}`);
+      option.value = String(room.id);
+      select.append(option);
+    }
+  }
+  function renderBookings(container, bookings2) {
+    container.replaceChildren();
+    if (bookings2.length === 0) {
+      const empty = createElement("p", "Броней пока нет");
+      empty.className = "empty";
+      container.append(empty);
+      return;
+    }
+    const table = createElement("table");
+    const head = createElement("tr");
+    for (const title of ["Дата", "Время", "Аудитория", "Кто", ""]) head.append(createElement("th", title));
+    table.append(head);
+    const sorted = [...bookings2].sort((a, b) => (a.date + a.start).localeCompare(b.date + b.start));
+    for (const booking of sorted) {
+      const row = createElement("tr");
+      const cancel = createElement("button", "×");
+      cancel.type = "button";
+      cancel.dataset.cancel = booking.id;
+      cancel.setAttribute("aria-label", "Отменить бронь");
+      const last = createElement("td");
+      last.append(cancel);
+      row.append(
+        createElement("td", booking.date),
+        createElement("td", `${booking.start}–${booking.end}`),
+        createElement("td", findRoom(booking.roomId)?.name ?? "—"),
+        createElement("td", booking.name),
+        last
+      );
+      table.append(row);
+    }
+    container.append(table);
+  }
+  function showMessage(element, text, isOk = false) {
+    element.textContent = text;
+    element.className = isOk ? "message ok" : "message";
+  }
+
+  // ../Lab10_ESModules/task3_booking/src/main.js
+  var fields = {
+    name: document.querySelector("#name"),
+    roomId: document.querySelector("#room"),
+    date: document.querySelector("#date"),
+    start: document.querySelector("#start"),
+    end: document.querySelector("#end")
+  };
+  var bookButton = document.querySelector("#book");
+  var messageBox = document.querySelector("#message");
+  var listBox = document.querySelector("#list");
+  var bookings = loadBookings();
+  function refresh() {
+    saveBookings(bookings);
+    renderBookings(listBox, bookings);
+  }
+  function handleBook() {
+    const form = Object.fromEntries(Object.entries(fields).map(([key, input]) => [key, input.value]));
+    const checked = validateBooking(form);
+    if (!checked.ok) {
+      showMessage(messageBox, checked.error);
+      return;
+    }
+    const result = addBooking(bookings, checked.value);
+    if (!result.ok) {
+      showMessage(messageBox, result.error);
+      return;
+    }
+    bookings = result.bookings;
+    showMessage(messageBox, "Бронь добавлена", true);
+    refresh();
+  }
+  renderRooms(fields.roomId, ROOMS);
+  refresh();
+  bookButton.addEventListener("click", handleBook);
+  for (const input of Object.values(fields)) {
+    input.addEventListener("input", () => showMessage(messageBox, ""));
+  }
+  listBox.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-cancel]");
+    if (!button) return;
+    bookings = cancelBooking(bookings, Number(button.dataset.cancel));
+    showMessage(messageBox, "Бронь отменена", true);
+    refresh();
+  });
+})();
+</script>
+</body>
+</html>

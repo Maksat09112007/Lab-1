@@ -1,0 +1,20 @@
+:root { --bg:#f3ecef; --main:#7a2e4d; --gold:#c9a227; --text:#2a1f25; --line:#d9c7cf; --ok:#4c6b3a; --err:#a4262c; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 "Segoe UI", Tahoma, sans-serif; }
+header { padding:1rem 2rem; background:var(--main); color:#fff; border-bottom:4px solid var(--gold); }
+h1 { margin:0; font-size:1.5rem; } h2 { margin:0 0 .6rem; font-size:1.1rem; color:var(--main); }
+.layout { display:grid; grid-template-columns:minmax(260px,1fr) 1.6fr; gap:1.2rem; padding:1.2rem 2rem; align-items:start; }
+@media (max-width:800px) { .layout { grid-template-columns:1fr; padding:1rem; } }
+.panel { padding:1.2rem; background:#fff; border-radius:8px; box-shadow:0 1px 6px rgba(0,0,0,.1); }
+label { display:block; margin:.7rem 0 .2rem; font-size:.85rem; text-transform:uppercase; letter-spacing:.04em; }
+input, select { width:100%; padding:.5rem .6rem; font:inherit; border:1.5px solid var(--line); border-radius:5px; }
+input:focus, select:focus { outline:2px solid var(--gold); border-color:var(--gold); }
+.times { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+button { font:inherit; cursor:pointer; border:0; border-radius:5px; padding:.6rem 1.2rem; background:var(--main); color:#fff; }
+#book { width:100%; margin-top:1rem; } button:hover { background:#5f2339; }
+.message { min-height:1.5em; margin:.7rem 0 0; color:var(--err); } .message.ok { color:var(--ok); }
+table { width:100%; border-collapse:collapse; font-size:.92rem; }
+th, td { padding:.45rem .4rem; text-align:left; border-bottom:1px solid var(--line); }
+th { color:var(--main); font-size:.8rem; text-transform:uppercase; }
+td button { padding:.1rem .5rem; background:transparent; color:var(--err); font-size:1.1rem; }
+.empty { color:#8b7a83; font-style:italic; }

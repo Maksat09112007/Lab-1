@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Конвертер единиц</title>
+  <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Конвертер единиц</h1>
+    <label for="operation">Операция</label>
+    <select id="operation"></select>
+    <label for="value">Значение</label>
+    <input id="value" type="text" inputmode="decimal" placeholder="Например, 2,5" autocomplete="off">
+    <button id="convert" type="button">Перевести</button>
+    <p id="error" class="error" role="alert"></p>
+    <p id="result" class="result" aria-live="polite"></p>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

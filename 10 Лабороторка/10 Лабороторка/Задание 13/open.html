@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Викторина по ES-модулям</title>
+  <style>
+:root { --bg:#f6ead9; --card:#fffaf2; --main:#b5532f; --dark:#3b2a20; --line:#e2d0b8; --ok:#4c7a3a; --err:#9b2226; }
+* { box-sizing: border-box; }
+body { margin:0; min-height:100vh; display:grid; place-items:center; background:var(--bg); color:var(--dark); font:16px/1.5 "Trebuchet MS", Verdana, sans-serif; }
+.card { width:min(94vw,560px); padding:1.8rem; background:var(--card); border:1px solid var(--line); border-radius:10px; border-top:6px solid var(--main); }
+h1 { margin:0 0 1rem; font-size:1.4rem; color:var(--main); }
+.progress { height:8px; background:var(--line); border-radius:4px; overflow:hidden; }
+#bar { height:100%; width:0; background:var(--main); transition:width .3s; }
+.progress-text { margin:.3rem 0 1rem; font-size:.9rem; color:#8a7561; }
+h2 { margin:0 0 .8rem; font-size:1.1rem; }
+.option { display:block; margin:.4rem 0; padding:.6rem .8rem; border:1.5px solid var(--line); border-radius:6px; cursor:pointer; }
+.option:hover { border-color:var(--main); }
+.option:has(input:checked) { border-color:var(--main); background:#fbe9de; }
+.option input { margin-right:.6rem; accent-color:var(--main); }
+.feedback { min-height:1.4em; margin:.8rem 0 0; font-weight:bold; } .feedback.ok { color:var(--ok); } .feedback.bad { color:var(--err); }
+.error { min-height:1.4em; margin:.3rem 0 0; color:var(--err); }
+button { margin-top:.6rem; padding:.65rem 1.4rem; font:inherit; font-weight:bold; color:#fff; background:var(--main); border:0; border-radius:6px; cursor:pointer; }
+button:hover { background:#954324; }
+.result { text-align:center; } .result .big { font-size:2.4rem; font-weight:bold; color:var(--main); margin:.4rem 0; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>Викторина: ES-модули</h1>
+    <div class="progress"><div id="bar"></div></div>
+    <p id="progress-text" class="progress-text"></p>
+    <section id="quiz"></section>
+    <p id="feedback" class="feedback" role="status"></p>
+    <p id="error" class="error" role="alert"></p>
+    <button id="submit" type="button">Ответить</button>
+  </main>
+  <script>
+(() => {
+  // ../Lab10_ESModules/task2_quiz/src/modules/questions.js
+  var QUESTIONS = [
+    { text: "Какой атрибут подключает скрипт как ES-модуль?", options: ['type="module"', 'async="module"', 'rel="module"'], correct: 0 },
+    { text: "Как правильно импортировать именованный экспорт?", options: ['import sum from "./math.js"', 'import { sum } from "./math.js"', 'require("./math.js")'], correct: 1 },
+    { text: "Зачем запускать модульный проект через HTTP-сервер?", options: ["Файлы быстрее загружаются", "Через file:// браузер блокирует загрузку модулей", "Так требует CSS"], correct: 1 },
+    { text: "Сколько default-экспортов может быть в модуле?", options: ["Один", "Два", "Сколько угодно"], correct: 0 },
+    { text: "Что такое циклическая зависимость?", options: ["Модуль импортирует сам себя в цикле for", "Модули A и B импортируют друг друга", "Повторный импорт одного файла"], correct: 1 },
+    { text: "Где видны переменные, объявленные в модуле без export?", options: ["Во всех модулях", "Только внутри этого модуля", "В глобальном объекте window"], correct: 1 }
+  ];
+
+  // ../Lab10_ESModules/task2_quiz/src/modules/quiz.js
+  function createQuiz() {
+    return { index: 0, score: 0, lastCorrect: null };
+  }
+  function isFinished(quiz2, questions = QUESTIONS) {
+    return quiz2.index >= questions.length;
+  }
+  function validateChoice(raw, question) {
+    const text = raw === null || raw === void 0 ? "" : String(raw).trim();
+    if (text === "") {
+      return { ok: false, error: "Выберите вариант ответа" };
+    }
+    if (!/^\d+$/.test(text) || Number(text) >= question.options.length) {
+      return { ok: false, error: "Некорректный вариант ответа" };
+    }
+    return { ok: true, value: Number(text) };
+  }
+  function submitAnswer(quiz2, choice, questions = QUESTIONS) {
+    if (isFinished(quiz2, questions)) return quiz2;
+    const correct = questions[quiz2.index].correct === choice;
+    return { index: quiz2.index + 1, score: quiz2.score + (correct ? 1 : 0), lastCorrect: correct };
+  }
+
+  // ../Lab10_ESModules/task2_quiz/src/modules/storage.js
+  var KEY = "lab10_quiz_best";
+  function loadBest() {
+    try {
+      const value = Number(localStorage.getItem(KEY));
+      return Number.isInteger(value) && value > 0 ? value : 0;
+    } catch {
+      return 0;
+    }
+  }
+  function saveBest(score) {
+    try {
+      localStorage.setItem(KEY, String(score));
+    } catch {
+    }
+  }
+
+  // ../Lab10_ESModules/task2_quiz/src/modules/ui.js
+  function createElement(tag, text = "", className = "") {
+    const element = document.createElement(tag);
+    element.textContent = text;
+    if (className) element.className = className;
+    return element;
+  }
+  function renderQuestion(container, question) {
+    container.replaceChildren(createElement("h2", question.text));
+    question.options.forEach((option, index) => {
+      const label = createElement("label", "", "option");
+      const radio = createElement("input");
+      radio.type = "radio";
+      radio.name = "answer";
+      radio.value = String(index);
+      label.append(radio, option);
+      container.append(label);
+    });
+  }
+  function renderProgress(bar2, textBox, index, total) {
+    bar2.style.width = `${Math.round(index / total * 100)}%`;
+    textBox.textContent = index >= total ? "Викторина завершена" : `Вопрос ${index + 1} из ${total}`;
+  }
+  function renderResult(container, score, total, best) {
+    container.replaceChildren();
+    const box = createElement("div", "", "result");
+    box.append(createElement("p", "Ваш результат"), createElement("p", `${score} / ${total}`, "big"), createElement("p", `Лучший результат: ${best} / ${total}`));
+    container.append(box);
+  }
+  function showFeedback(element, text, isOk) {
+    element.textContent = text;
+    element.className = `feedback ${text ? isOk ? "ok" : "bad" : ""}`;
+  }
+  function showError(element, text) {
+    element.textContent = text;
+  }
+
+  // ../Lab10_ESModules/task2_quiz/src/main.js
+  var quizBox = document.querySelector("#quiz");
+  var bar = document.querySelector("#bar");
+  var progressText = document.querySelector("#progress-text");
+  var feedbackBox = document.querySelector("#feedback");
+  var errorBox = document.querySelector("#error");
+  var button = document.querySelector("#submit");
+  var quiz = createQuiz();
+  function show() {
+    renderProgress(bar, progressText, quiz.index, QUESTIONS.length);
+    if (isFinished(quiz)) {
+      const best = Math.max(loadBest(), quiz.score);
+      saveBest(best);
+      renderResult(quizBox, quiz.score, QUESTIONS.length, best);
+      button.textContent = "Пройти заново";
+    } else {
+      renderQuestion(quizBox, QUESTIONS[quiz.index]);
+      button.textContent = "Ответить";
+    }
+  }
+  function handleSubmit() {
+    if (isFinished(quiz)) {
+      quiz = createQuiz();
+      showFeedback(feedbackBox, "", true);
+      show();
+      return;
+    }
+    const selected = quizBox.querySelector("input[name='answer']:checked");
+    const parsed = validateChoice(selected?.value, QUESTIONS[quiz.index]);
+    if (!parsed.ok) {
+      showError(errorBox, parsed.error);
+      return;
+    }
+    const question = QUESTIONS[quiz.index];
+    quiz = submitAnswer(quiz, parsed.value);
+    showFeedback(feedbackBox, quiz.lastCorrect ? "Верно!" : `Неверно. Правильный ответ: ${question.options[question.correct]}`, quiz.lastCorrect);
+    showError(errorBox, "");
+    show();
+  }
+  button.addEventListener("click", handleSubmit);
+  quizBox.addEventListener("change", () => showError(errorBox, ""));
+  show();
+})();
+</script>
+</body>
+</html>
