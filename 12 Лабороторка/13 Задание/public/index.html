@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сервис заявок</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Сервис заявок</h1>
+
+    <section id="guest">
+      <form id="loginForm" novalidate>
+        <label>Логин <input id="login" autocomplete="username"></label>
+        <label>Пароль <input id="password" type="password" autocomplete="current-password"></label>
+        <button type="submit">Войти</button>
+      </form>
+    </section>
+
+    <section id="app" hidden>
+      <div class="top">
+        <p>Пользователь: <strong id="userName"></strong></p>
+        <button id="logout" type="button" class="secondary">Выйти</button>
+      </div>
+
+      <h2>Мои заявки</h2>
+      <ul id="list"></ul>
+
+      <h2>Новая заявка</h2>
+      <form id="newForm" novalidate>
+        <label>Тема <input id="title" maxlength="100"></label>
+        <label>Описание <textarea id="desc" rows="2" maxlength="500"></textarea></label>
+        <button type="submit">Отправить</button>
+      </form>
+
+      <h2>Открыть заявку по номеру</h2>
+      <form id="openForm" class="inline" novalidate>
+        <input id="reqId" type="number" min="1" placeholder="№">
+        <button type="submit" class="secondary">Открыть</button>
+      </form>
+      <p id="detail"></p>
+
+      <h2>Последние попытки входа</h2>
+      <ul id="history" class="small"></ul>
+    </section>
+
+    <p id="status" role="status"></p>
+  </main>
+  <script src="mock.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

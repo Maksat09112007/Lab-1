@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "login": "user1",
+    "name": "Данияр Омаров",
+    "hash": "$2a$10$vVAeRvECoUrukLBDFW4PFOsNOf9LriTj21jJnafKBgk157P6FXLDm"
+  },
+  {
+    "id": 2,
+    "login": "user2",
+    "name": "Мадина Ахметова",
+    "hash": "$2a$10$OheuKaksdbzyoyW9lT.4EO2sTwao2A7hNZ9HMAU70OVwROEfwc8zC"
+  }
+]

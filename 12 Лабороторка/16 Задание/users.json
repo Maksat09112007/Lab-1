@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "login": "admin",
+    "name": "Администратор",
+    "role": "admin",
+    "hash": "$2a$10$zmaV2kX1vIxJQQpPB8eamejRITZGkVSJdQYf9Dj6uUimYas.8g/Qy"
+  },
+  {
+    "id": 2,
+    "login": "manager",
+    "name": "Серик Манагер",
+    "role": "manager",
+    "hash": "$2a$10$eK9m7P3JuFVyy7hF.uGti.h8Zm3zfO6f.uwFYwlja31hC9293HbOa"
+  },
+  {
+    "id": 3,
+    "login": "user",
+    "name": "Алия Пользователь",
+    "role": "user",
+    "hash": "$2a$10$XBysp2036TPSZPJgEc7Y9O2a1KaTdSxb4LlsOw3zHjQNs9NnVPu9m"
+  }
+]

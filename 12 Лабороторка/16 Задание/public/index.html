@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Управление пользователями</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>Управление пользователями</h1>
+
+    <section id="guest">
+      <form id="loginForm" novalidate>
+        <label>Логин <input id="login" autocomplete="username"></label>
+        <label>Пароль <input id="password" type="password" autocomplete="current-password"></label>
+        <button type="submit">Войти</button>
+      </form>
+    </section>
+
+    <section id="app" hidden>
+      <div class="top">
+        <p><strong id="userName"></strong> <span id="userRole" class="badge"></span></p>
+        <button id="logout" type="button" class="secondary">Выйти</button>
+      </div>
+      <p class="timer">Токен действует ещё <strong id="timeLeft">--:--</strong></p>
+
+      <div class="row">
+        <button id="btnReport" type="button" class="secondary">Отчёт (manager/admin)</button>
+        <button id="btnUsers" type="button" class="secondary">Пользователи (admin)</button>
+        <button id="btnAudit" type="button" class="secondary">Журнал (admin)</button>
+      </div>
+
+      <p id="report"></p>
+      <table id="usersTable" hidden>
+        <thead><tr><th>Логин</th><th>Имя</th><th>Роль</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <table id="auditTable" hidden>
+        <thead><tr><th>Время</th><th>Событие</th><th>Логин</th><th>Детали</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <p id="status" role="status"></p>
+  </main>
+  <script src="mock.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

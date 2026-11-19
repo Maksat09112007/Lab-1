@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "login": "teacher1",
+    "name": "Айгерим Сериккызы",
+    "role": "teacher",
+    "hash": "$2a$10$1SWx5ZQbd7k9D.tAs7qS2.M6/aHOwDklA73q/oYQyYVJks2j3egzq"
+  },
+  {
+    "id": 2,
+    "login": "student1",
+    "name": "Ержан Нуров",
+    "role": "student",
+    "hash": "$2a$10$7mZxVXMDKfjiISUDbt/29.pNz1ra58HYsluHlunjPYS7fJRNosXVS"
+  }
+]

@@ -1,0 +1,37 @@
+:root {
+  --bg: #f6eee9;
+  --card: #fffdf8;
+  --ink: #2b2a26;
+  --accent: #8c3b3b;
+  --accent-ink: #ffffff;
+  --muted: #7a7566;
+  --error: #a63d2f;
+  --ok: #3f6b2c;
+  --line: #e3d3ca;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--bg); color: var(--ink); font-family: Georgia, "Times New Roman", serif; }
+.card { width: min(460px, 92vw); background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 28px; }
+h1 { margin: 0 0 18px; font-size: 1.5rem; }
+label { display: block; margin-bottom: 12px; font-size: .95rem; }
+input { display: block; width: 100%; margin-top: 4px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 4px; font: inherit; background: #fff; }
+input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+button { padding: 9px 16px; border: 0; border-radius: 4px; background: var(--accent); color: var(--accent-ink); font: inherit; cursor: pointer; }
+button.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.row { display: flex; gap: 10px; margin: 14px 0; }
+.badge { padding: 1px 8px; border: 1px solid var(--accent); border-radius: 10px; color: var(--accent); font-size: .85rem; }
+.timer { color: var(--muted); font-size: .9rem; }
+.timer.low strong { color: var(--error); }
+ul { padding-left: 18px; }
+#status { min-height: 1.4em; margin: 14px 0 0; font-size: .95rem; }
+#status.error { color: var(--error); }
+#status.ok { color: var(--ok); }
+h2 { font-size: 1.05rem; margin: 20px 0 8px; }
+.top { display: flex; justify-content: space-between; align-items: center; }
+.top p { margin: 0; }
+textarea { display: block; width: 100%; margin-top: 4px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 4px; font: inherit; resize: vertical; background: #fff; }
+.inline { display: flex; gap: 10px; }
+.inline input { width: 110px; margin: 0; }
+li .st { color: var(--muted); font-size: .85rem; }
+.small { font-size: .85rem; color: var(--muted); }
+#detail { min-height: 1.3em; }

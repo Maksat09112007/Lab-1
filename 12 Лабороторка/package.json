@@ -1,0 +1,18 @@
+{
+  "name": "lab12-auth",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Лабораторная работа №12: аутентификация, сессии и JWT (варианты 4, 13, 16)",
+  "scripts": {
+  "start:4": "node \"4 Задание/server.js\"",
+  "start:13": "node \"13 Задание/server.js\"",
+  "start:16": "node \"16 Задание/server.js\"",
+  "test": "node --test \"4 Задание/test.js\" \"13 Задание/test.js\" \"16 Задание/test.js\""
+},
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
